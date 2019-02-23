@@ -1,134 +1,145 @@
 import './GlobalStyle';
-import { Flex, Box } from '@rebass/grid'
-import { LiveCode } from 'mdx-deck-live-code';
 export { default as theme } from './theme'
 
-# why Hooks?
+<p>Hello World 👋</p>
+# <u>Web</u> Assembly!
 ---
 
-<p>shouldComponentUpdate?</p>
-<p>getDerivedStateFromProps()</p>
+# Fast as Flash ⚡?
+<p><u>Less size</u> + <u>BYTE code</u> (80% as fast as native code)</p>
+<p>vs</p>
+<p><u>Interpreted</u> + <u>On-the-fly optimizations</u> in user's machine</p>
 
 ---
-Reuse stateful logic
----
-State can be broken into multiple reusable units
 
+# What's in Future <small>(Time travel)</small> ⌛?
+### (WASM is v1.0 - currently a baby)
+1. <p>Multi Threading (Hard core performance)</p>
+2. <p>Source maps</p>
+3. <p>Direct access to JS APIs (DOM, WebGL, IndexDB, Audio API, AJAX)</p>
+4. <p>JS developers on road? 🤔</p>
+
+---
+
+# RIP JS?
+### (Not really)
+1. Glue to Browser <img src="https://i.imgur.com/UlwYzSf.png" width="100px"/>
+2. UI/UX
+3. WASM - only a Booster for Performance hungry pages
+4. WASM - Long Roadmap
+
+or
+
+<p> <b>Go Full-Stack?</b> <br /> WASM supports C / C++ / Rust. Soon GO.</p>
+<p> <small>Anybody wants PHP support? 😂</small> </p>
+---
+
+# WASM will Rock!
+### (In your Web pages itself)
+1. <p>Games (P2P, AR, VR with low latency)</p>
+2. <p>Collaborative editors <small>([Rendering engine - Figma](https://www.figma.com/blog/webassembly-cut-figmas-load-time-by-3x/))</small></p>
+3. <p>Music applications (streaming and caching)</p>
+4. <p>Image recognition/processing</p>
+
+---
+
+# Hands On, nice!
+### (Steps)
+
+1. <u>Compile</u> .c file into .wasm
+2. <u>Load</u> .wasm in JS
+3. <u>Execute</u> fn. ...Simple! 😛
+
+<img src="https://i.imgur.com/YAjRqog.png" width="500px"/>
+<p><small>Draw Fractal pattern on Canvas</small></p>
+
+---
+
+# Step 1: Compile
+### (Use LLVM compiler [Emscripten](https://emscripten.org/docs/getting_started/downloads.html) / [online](https://mbebenita.github.io/WasmExplorer/))
+
+1. <p>Write .c / .cpp function. Eg: printf() / loops.</p>
 ```js
-this.state = {
-  isLoading: true,
-  userData: { name, email },
-  friendList: []
+extern "C"  // To avoid     name mangling during compilation
+float someCFunction(float x, int y) {
+  //...
+  return some_integer_or_float;
 }
 ```
+2. Compile to .wasm file.
 
-```js
-  const { isLoading, setLoading } = useState(true);
-  const { user, setUsers } = useState({ name, email });
-  const { friends, setFriends } = useState([]);
-```
----
-state manipulation logic can be written outside of component
-
-```js
-this.onClick = () => {
-  axios('/source').then(data => {
-    this.setState({ data, isLoading: false })
-  })
-}
-```
-
-```js
-const { isLoading, data } = usePromise(() => axios('/source'));
+```wasm
+0061 736d 0100 0000 0188 8080 8000 0160
+037d 7d7f 017d 0382 8080 8000 0100 0484
 ```
 
 ---
-<LiveCode
-  size='fullscreen'
-  code={require('!raw-loader!./code/Werewolf-class.js')}
-/>
----
-<LiveCode
-  errors={false}
-  size='fullscreen'
-  editorProps={{ className: 'live-func' }}
-  code={require('!raw-loader!./code/Werewolf-function.js')}
-/>
----
+
+# Step 2: Load
+### (React + Webpack, wow!)
+
+1. <p>Load using [Dynamic import module](https://babeljs.io/docs/en/babel-plugin-syntax-dynamic-import)</p>
 ```js
-  function HelloUser() {
-    const { loading, data } = useFetch('/user');
+const wasm = import("./fractal.wasm");
 
-    if (loading) { return 'loading user' }
+/* Loads as Content-Type: application/wasm */
+wasm.then(wasm => {
+    // const someCFunction = wasm.someCFunction; // Assign for reuse
+    // const RESULT = someCFunction(2, 3); // Arguments as in C fn.
 
-    return <p>👋 {data.name}!</p>
-  }
+    //...
+});
 
-  function FriendsCount() {
-    const { loading, data } = useFetch('/friends');
-
-    if (loading) { return 'fetching friends' }
-
-    return <p>You have {data.length} friends</p>
-  }
-
----
-Code by concern, not lifecycle
-
-<Flex alignItems='center'>
-<Box mr={3}>
-
-```js
-componentDidMount() {
-  document.title = 'component live';
-  this.fetchData();
-  this.pollTwitterAPI();
-}
-
-componentWillUnmount() {
-  document.title = 'component dead';
-  this.stopPollingTwitter();
-}
 ```
 
-</Box>
-<Box>
-
-```js
-useEffect(() => {
-  document.title = 'component live';
-  return () => {
-    document.title = 'component dead';
-  }
-})
-useEffect(fetchData);
-useEffect(twitterAPI);
-
-function twitterAPI() {
-  pollTwitterAPI();
-  return stopPollingTwitter;
-}
-```
-
-</Box>
-</Flex>
 ---
-- Segregated units are easier to test/debug
-- Transpiled code is very close to original code
-- Less bundle size: can be minified much more
-- Have to write less code overall
 
+# Step 3: Execute (Glory!)
+
+1. <p>Execute <u>same as</u> JS Fn.</p>
 ```js
-// irrelevant to app-logic
-constructor(props) {
-  super(props);
-  this.handleClick = this.handleClick.bind(this);
-}
+const wasm = import("./fractal.wasm");
+
+/* Loads as Content-Type: application/wasm */
+wasm.then(wasm => {
+    const someCFunction = wasm.someCFunction; // Assign for reuse
+    const RESULT = someCFunction(2, 3); // Arguments as in C fn.
+
+    //...
+});
+
 ```
+
+---
+
+# Good points!
+
+1. No main Fn. needed in WASM (Emscripten compiler handles)
+2. For music based apps - Stream byte code and read Buffer (readAsArrayBuffer)
+3. JS Fns. calls in WASM (#include emscripten.h)
+4. Only floats and integers exchange allowed between Fns. (For strings - convert into Array of numbers)
+5. WASM in old browsers? Use Emscripten to compile to asm.js (a subset of JavaScript)
+
+
 ---
 
 # Thank you
 
 built with mdx-deck
+<br />
 
----
+
+<div><img src="https://i.imgur.com/AtnaCSu.png" width="62px"/>  @aseem2625</div>
+<small>
+
+Presentation Link:
+[/hello-world-wasm-talk](https://github.com/aseem2625/hello-world-wasm-talk)
+
+Demo Code:
+[/hello-world-wasm-demo](https://github.com/aseem2625/hello-world-wasm-demo)
+
+<br />
+
+Example Credits:
+[www.dev.to](https://dev.to/brightdevs/using-webassembly-with-react-1led)
+</small>

@@ -23,6 +23,14 @@ s.innerHTML = `
   {
     opacity: 0.2;
   }
+  
+  h1, h3 {
+    text-transform: unset !important;
+  }
+  
+  a {
+    color: #ff3c6f !important;
+  }
 `
 document.head.appendChild(s);
 
