@@ -15,7 +15,7 @@ export { default as theme } from './theme'
 # What's in Future <small>(Time travel)</small> ⌛?
 ### (WASM is v1.0 - currently a baby)
 1. <p>Multi Threading (Hard core performance)</p>
-2. <p>Source maps</p>
+2. <p>Debugging (Source maps)</p>
 3. <p>Direct access to JS APIs (DOM, WebGL, IndexDB, Audio API, AJAX)</p>
 4. <p>JS developers on road? 🤔</p>
 
@@ -23,7 +23,7 @@ export { default as theme } from './theme'
 
 # RIP JS?
 ### (Not really)
-1. Glue to Browser <img src="https://i.imgur.com/UlwYzSf.png" width="100px"/>
+1. Glue to Browser <img src="https://raw.githubusercontent.com/aseem2625/hello-world-wasm-talk/master/images/hurray.png" width="100px"/>
 2. UI/UX
 3. WASM - only a Booster for Performance hungry pages
 4. WASM - Long Roadmap
@@ -35,7 +35,7 @@ or
 ---
 
 # WASM will Rock!
-### (In your Web pages itself)
+### (C++ in your Web pages 😮)
 1. <p>Games (P2P, AR, VR with low latency)</p>
 2. <p>Collaborative editors <small>([Rendering engine - Figma](https://www.figma.com/blog/webassembly-cut-figmas-load-time-by-3x/))</small></p>
 3. <p>Music applications (streaming and caching)</p>
@@ -50,7 +50,7 @@ or
 2. <u>Load</u> .wasm in JS
 3. <u>Execute</u> fn. ...Simple! 😛
 
-<img src="https://i.imgur.com/YAjRqog.png" width="500px"/>
+<img src="https://raw.githubusercontent.com/aseem2625/hello-world-wasm-talk/master/images/fractal.png" width="500px"/>
 <p><small>Draw Fractal pattern on Canvas</small></p>
 
 ---
@@ -58,9 +58,9 @@ or
 # Step 1: Compile
 ### (Use LLVM compiler [Emscripten](https://emscripten.org/docs/getting_started/downloads.html) / [online](https://mbebenita.github.io/WasmExplorer/))
 
-1. <p>Write .c / .cpp function. Eg: printf() / loops.</p>
+1. <p>Write .c (.cpp) function. Use printf(), loops, etc.</p>
 ```js
-extern "C"  // To avoid     name mangling during compilation
+extern "C"  // To avoid name mangling during compilation
 float someCFunction(float x, int y) {
   //...
   return some_integer_or_float;
@@ -114,11 +114,11 @@ wasm.then(wasm => {
 
 # Good points!
 
-1. No main Fn. needed in WASM (Emscripten compiler handles)
-2. For music based apps - Stream byte code and read Buffer (readAsArrayBuffer)
-3. JS Fns. calls in WASM (#include emscripten.h)
-4. Only floats and integers exchange allowed between Fns. (For strings - convert into Array of numbers)
-5. WASM in old browsers? Use Emscripten to compile to asm.js (a subset of JavaScript)
+1. <u>No main Fn.</u> needed in WASM (Emscripten compiler handles)
+2. <u>Music based apps?</u> Stream byte code and read Buffer (readAsArrayBuffer)
+3. <u>JS Fns. calls in WASM</u> (#include emscripten.h)
+4. <u>Only floats and integers</u> exchange allowed between Fns. (<u>For strings</u> - convert into Array of numbers)
+5. WASM in <u>old browsers?</u> Use Emscripten to compile to asm.js (a subset of JavaScript)
 
 
 ---
@@ -129,7 +129,7 @@ built with mdx-deck
 <br />
 
 
-<div><img src="https://i.imgur.com/AtnaCSu.png" width="62px"/>  @aseem2625</div>
+<div><img src="https://raw.githubusercontent.com/aseem2625/hello-world-wasm-talk/master/images/github.png" width="62px"/>  @aseem2625</div>
 <small>
 
 Presentation Link:
