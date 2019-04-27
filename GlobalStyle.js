@@ -24,7 +24,7 @@ s.innerHTML = `
     opacity: 0.2;
   }
   
-  h1, h3 {
+  h1, h3, h2 {
     text-transform: unset !important;
   }
   
